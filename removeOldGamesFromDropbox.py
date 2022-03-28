@@ -2,7 +2,7 @@ import dropbox
 from datetime import datetime
 
 LAST_YEAR_TO_REMOVE = 2021
-LAST_MONTH_TO_REMOVE = 6
+LAST_MONTH_TO_REMOVE = 9
 LAST_DAY_TO_REMOVE = 30
 
 
@@ -21,8 +21,9 @@ while True:
 
     print("Starting with page {0}, containing {1} save games".format(i, len(folderList.entries)))
 
+    i += 1
+    
     for entry in folderList.entries:
-        i += 1
         print("Found file {0}".format(entry.name))
         metadata = dbx.files_download_to_file("./saveFiles/{0}".format(entry.name), "/MultiplayerGames/{0}".format(entry.name))
         print("Downloaded file {0}".format(entry.name))

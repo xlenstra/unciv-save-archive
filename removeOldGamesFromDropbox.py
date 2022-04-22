@@ -18,11 +18,10 @@ while True:
     # as we delete all files anyway
     folderList = dbx.files_list_folder('/MultiplayerGames')
 
-
     print("Starting with page {0}, containing {1} save games".format(i, len(folderList.entries)))
 
     i += 1
-    
+
     for entry in folderList.entries:
         print("Found file {0}".format(entry.name))
         metadata = dbx.files_download_to_file("./saveFiles/{0}".format(entry.name), "/MultiplayerGames/{0}".format(entry.name))

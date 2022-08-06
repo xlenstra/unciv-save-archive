@@ -1,8 +1,9 @@
 import dropbox
+import os
 from datetime import datetime
 
 LAST_YEAR_TO_REMOVE = 2021
-LAST_MONTH_TO_REMOVE = 10
+LAST_MONTH_TO_REMOVE = 12
 LAST_DAY_TO_REMOVE = 31
 
 
@@ -10,8 +11,10 @@ last_date_to_remove = datetime(LAST_YEAR_TO_REMOVE, LAST_MONTH_TO_REMOVE, LAST_D
 
 dbx = dropbox.Dropbox("LTdBbopPUQ0AAAAAAAACxh4_Qd1eVMM7IBK3ULV3BgxzWZDMfhmgFbuUNF_rXQWb")
 
-stop = False
+localSaveFolder = "./saveFiles/"
 
+
+stop = False
 i = 0
 while True:
     # We can just use the list_folder and ignore the cursor
@@ -24,10 +27,14 @@ while True:
 
     for entry in folderList.entries:
         print("Found file {0}".format(entry.name))
-        metadata = dbx.files_download_to_file("./saveFiles/{0}".format(entry.name), "/MultiplayerGames/{0}".format(entry.name))
-        print("Downloaded file {0}".format(entry.name))
 
-        if (metadata.client_modified <= last_date_to_remove and metadata.server_modified <= last_date_to_remove and entry.name != ""):
+        if (entry.client_modified <= last_date_to_remove and entry.server_modified <= last_date_to_remove and entry.name != ""):
+            if ("_Preview" not in entry.name):
+                metadata = dbx.files_download_to_file(localSaveFolder + entry.name, "/MultiplayerGames/{0}".format(entry.name))
+                print("Downloaded file {0}".format(entry.name))
+            else:
+                print("Skipped downloading of preview file {0}".format(entry.name))
+
             dbx.files_delete("/MultiplayerGames/{0}".format(entry.name))
             print("Deleted file {0}".format(entry.name))
         else:

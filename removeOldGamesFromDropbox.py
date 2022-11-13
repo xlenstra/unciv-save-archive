@@ -2,9 +2,9 @@ import dropbox
 import os
 from datetime import datetime
 
-LAST_YEAR_TO_REMOVE = 2021
-LAST_MONTH_TO_REMOVE = 12
-LAST_DAY_TO_REMOVE = 31
+LAST_YEAR_TO_REMOVE = 2022
+LAST_MONTH_TO_REMOVE = 2
+LAST_DAY_TO_REMOVE = 28
 
 
 last_date_to_remove = datetime(LAST_YEAR_TO_REMOVE, LAST_MONTH_TO_REMOVE, LAST_DAY_TO_REMOVE)
